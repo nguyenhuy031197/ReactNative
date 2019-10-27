@@ -3,7 +3,13 @@ import React, {Component} from 'react';
 import {Text, View, TouchableOpacity} from 'react-native';
 
 export default class MyState extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 1,
+    };
+  }
+  render() {    
     return (
       <View
         style={{
@@ -12,14 +18,19 @@ export default class MyState extends Component {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Text style={{color: 'red', fontSize: 40}}>Count : 0</Text>
+        <Text style={{color: 'red', fontSize: 40}}>Count : {this.state.count}</Text>
         <View
           style={{
             width: '100%',
             flexDirection: 'row',
             justifyContent: 'space-evenly',
           }}>
-          <TouchableOpacity style={{backgroundColor: 'green', padding: 10}}>
+          <TouchableOpacity
+            style={{backgroundColor: 'green', padding: 10}}
+            onPress={function() {
+              count++;
+              alert(count);
+            }}>
             <Text
               style={{color: 'white', fontStyle: 'italic', fontWeight: 'bold'}}>
               Increase
