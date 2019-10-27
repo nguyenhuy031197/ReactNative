@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, Dimensions} from 'react-native';
+import { isMemberExpression } from '@babel/types';
 
 const width = Dimensions.get('window').width;
 
@@ -21,7 +22,7 @@ export default class Word extends Component {
         <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
           <Text style={{fontSize: width / 15, color: '#28a745'}}> {en} </Text>
           <Text style={{fontSize: width / 15, color: 'red'}}>
-            {isMemorized ? vn : '----'}
+          {isMemorized ? '----' : vn}
           </Text>
         </View>
         <View
@@ -31,7 +32,7 @@ export default class Word extends Component {
             marginTop: width / 30,
           }}>
           <TouchableOpacity>
-            <Text>Forgot</Text>
+          <Text>{isMemorized ? 'Forgot' : 'isMemorized'}</Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Text>Remove</Text>
