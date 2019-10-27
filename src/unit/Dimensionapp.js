@@ -1,5 +1,5 @@
 import {Dimensions} from 'react-native';
-class Dimensionapp {
+export class Dimensionapp {
   static getWidth() {
     return Dimensions.get('window').width;
   }

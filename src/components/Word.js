@@ -1,8 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, Dimensions} from 'react-native';
-
-const width = Dimensions.get('window').width;
+import {Dimensionapp} from '../unit/Dimensionapp';
 
 export default class Word extends Component {
   render() {
@@ -11,21 +10,24 @@ export default class Word extends Component {
       <View
         style={{
           flexDirection: 'column',
-          height: width / 4,
+          height: Dimensionapp.getWidth() / 4,
           borderColor: 'white',
-          borderRadius: width / 100,
+          borderRadius: Dimensionapp.getWidth() / 100,
           backgroundColor: 'white',
-          margin: width / 70,
+          margin: Dimensionapp.getWidth() / 70,
           justifyContent: 'center',
         }}>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            paddingHorizontal: width / 8,
+            paddingHorizontal: Dimensionapp.getWidth() / 8,
           }}>
-          <Text style={{fontSize: width / 15, color: '#28a745'}}> {en} </Text>
-          <Text style={{fontSize: width / 15, color: 'red'}}>
+          <Text
+            style={{fontSize: Dimensionapp.getWidth() / 15, color: '#28a745'}}>
+            {en}
+          </Text>
+          <Text style={{fontSize: Dimensionapp.getWidth() / 15, color: 'red'}}>
             {isMemorized ? '----' : vn}
           </Text>
         </View>
@@ -33,19 +35,19 @@ export default class Word extends Component {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginTop: width / 30,
-            paddingHorizontal: width / 15,
+            marginTop: Dimensionapp.getWidth() / 30,
+            paddingHorizontal: Dimensionapp.getWidth() / 15,
           }}>
           <TouchableOpacity
             style={{
               backgroundColor: isMemorized ? '#28a745' : 'red',
-              padding: width / 65,
-              marginLeft: isMemorized ? width / 20 : 0,
+              padding: Dimensionapp.getWidth() / 65,
+              marginLeft: isMemorized ? Dimensionapp.getWidth() / 20 : 0,
             }}>
             <Text
               style={{
                 color: 'white',
-                fontSize: width / 20,
+                fontSize: Dimensionapp.getWidth() / 20,
               }}>
               {isMemorized ? 'Forgot' : 'isMemorized'}
             </Text>
@@ -53,9 +55,12 @@ export default class Word extends Component {
           <TouchableOpacity
             style={{
               backgroundColor: '#E0A800',
-              padding: width / 65,
+              padding: Dimensionapp.getWidth() / 65,
             }}>
-            <Text style={{color: 'white', fontSize: width / 20}}>Remove</Text>
+            <Text
+              style={{color: 'white', fontSize: Dimensionapp.getWidth() / 20}}>
+              Remove
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
