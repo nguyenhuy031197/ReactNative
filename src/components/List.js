@@ -16,6 +16,13 @@ export default class List extends Component {
       ],
     };
   }
+  toggleMemorized(id) {
+    const newArray = this.state.words.map(item => {
+      if (id !== item.id) return item;
+      return {...item, isMemorized: !item.isMemorized};
+    });
+    this.setState({words: newArray});
+  }
   render() {
     return (
       <View style={{flex: 1, backgroundColor: 'lightgrey'}}>
@@ -30,21 +37,7 @@ export default class List extends Component {
               <View style={styles.groupButton}>
                 <TouchableOpacity
                   onPress={function() {
-                    const newArray = this.state.words.map(item => {
-                      if (id !== item.id) return item;
-                      const itemid = item.id;
-                      const itemen = item.en;
-                      const itemvn = item.vn;
-                      const itemisMemorized = item.isMemorized;
-                      const itemUpdate = {
-                        id: itemid,
-                        en: itemen,
-                        vn: itemvn,
-                        isMemorized: !itemisMemorized,
-                      };
-                      return itemUpdate;
-                    });
-                    this.setState({words: newArray});
+                    this.toggleMemorized(id);
                   }.bind(this)}
                   style={{
                     ...styles.touchableMemorized,
