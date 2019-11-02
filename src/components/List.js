@@ -18,8 +18,17 @@ export default class List extends Component {
   }
   toggleMemorized(id) {
     const newArray = this.state.words.map(item => {
-      if (id !== item.id) return item;
+      if (id !== item.id) {
+        return item;
+      }
       return {...item, isMemorized: !item.isMemorized};
+    });
+    this.setState({words: newArray});
+  }
+  removeWord(id) {
+    const newArray = this.state.words.filter(item => {
+      if (item.id === id) return false;
+      return true;
     });
     this.setState({words: newArray});
   }
@@ -36,9 +45,7 @@ export default class List extends Component {
               </View>
               <View style={styles.groupButton}>
                 <TouchableOpacity
-                  onPress={function() {
-                    this.toggleMemorized(id);
-                  }.bind(this)}
+                  onPress={() => this.toggleMemorized(id)}
                   style={{
                     ...styles.touchableMemorized,
                     backgroundColor: isMemorized ? '#28a745' : 'red',
@@ -48,15 +55,8 @@ export default class List extends Component {
                     {isMemorized ? 'Forgot' : 'isMemorized'}
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity 
-                  onPress={function(){
-                      const index = this.state.words.findIndex(item =>{
-                          return item.id == id
-                      })
-                      this.state.words.splice(index,1)
-                      this.setState({words : this.state.words})
-                      alert(JSON.stringify(this.state.words))
-                  }.bind(this)}
+                <TouchableOpacity
+                  onPress={() => this.removeWord(id)}
                   style={styles.touchableRemove}>
                   <Text style={styles.textRemove}>Remove</Text>
                 </TouchableOpacity>
