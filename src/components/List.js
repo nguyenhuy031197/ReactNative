@@ -18,9 +18,9 @@ export default class List extends Component {
   }
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, backgroundColor: 'lightgrey'}}>
         {this.state.words.map(item => {
-          const {en, vn, isMemorized} = item;
+          const {en, vn, isMemorized, id} = item;
           return (
             <View style={styles.container} key={item.id}>
               <View style={styles.groupText}>
@@ -29,6 +29,23 @@ export default class List extends Component {
               </View>
               <View style={styles.groupButton}>
                 <TouchableOpacity
+                  onPress={function() {
+                    const newArray = this.state.words.map(item => {
+                      if (id !== item.id) return item;
+                      const itemid = item.id;
+                      const itemen = item.en;
+                      const itemvn = item.vn;
+                      const itemisMemorized = item.isMemorized;
+                      const itemUpdate = {
+                        id: itemid,
+                        en: itemen,
+                        vn: itemvn,
+                        isMemorized: !itemisMemorized,
+                      };
+                      return itemUpdate;
+                    });
+                    this.setState({words: newArray});
+                  }.bind(this)}
                   style={{
                     ...styles.touchableMemorized,
                     backgroundColor: isMemorized ? '#28a745' : 'red',
