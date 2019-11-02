@@ -1,8 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-import {View, Text, SafeAreaView} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import Word from './src/components/Word';
 import List from './src/components/List';
+import Form from './src/components/Form';
+
 // import MyState from './src/components/MyState';
 // import MyProps from './src/components/MyProps';
 
@@ -15,7 +17,8 @@ class App extends Component {
             return <Word word={word} key={word.id} />;
           })}
         </View> */}
-        <List />
+        {/* <List /> */}
+        <Form />
       </SafeAreaView>
     );
   }
