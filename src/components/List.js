@@ -48,7 +48,16 @@ export default class List extends Component {
                     {isMemorized ? 'Forgot' : 'isMemorized'}
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.touchableRemove}>
+                <TouchableOpacity 
+                  onPress={function(){
+                      const index = this.state.words.findIndex(item =>{
+                          return item.id == id
+                      })
+                      this.state.words.splice(index,1)
+                      this.setState({words : this.state.words})
+                      alert(JSON.stringify(this.state.words))
+                  }.bind(this)}
+                  style={styles.touchableRemove}>
                   <Text style={styles.textRemove}>Remove</Text>
                 </TouchableOpacity>
               </View>
