@@ -2,16 +2,10 @@
 import React, {Component} from 'react';
 import {View, Text, SafeAreaView} from 'react-native';
 import Word from './src/components/Word';
-import MyState from './src/components/MyState';
+import List from './src/components/List';
+// import MyState from './src/components/MyState';
 // import MyProps from './src/components/MyProps';
 
-const arrayWords = [
-  {id: 'a1', en: 'One', vn: 'Mot', isMemorized: true},
-  {id: 'a2', en: 'Two', vn: 'Hai', isMemorized: false},
-  {id: 'a3', en: 'Three', vn: 'Ba', isMemorized: false},
-  {id: 'a4', en: 'Four', vn: 'Bon', isMemorized: false},
-  {id: 'a5', en: 'Five', vn: 'Nam', isMemorized: true},
-];
 class App extends Component {
   render() {
     return (
@@ -21,7 +15,7 @@ class App extends Component {
             return <Word word={word} key={word.id} />;
           })}
         </View> */}
-        <MyState />
+        <List />
       </SafeAreaView>
     );
   }

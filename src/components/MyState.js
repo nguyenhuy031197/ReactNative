@@ -9,7 +9,7 @@ export default class MyState extends Component {
       count: 1,
     };
   }
-  render() {    
+  render() {
     return (
       <View
         style={{
@@ -18,7 +18,9 @@ export default class MyState extends Component {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Text style={{color: 'red', fontSize: 40}}>Count : {this.state.count}</Text>
+        <Text style={{color: 'red', fontSize: 40}}>
+          Count : {this.state.count}
+        </Text>
         <View
           style={{
             width: '100%',
