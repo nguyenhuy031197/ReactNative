@@ -24,7 +24,7 @@ export default class List extends Component {
       ],
       txtEn: '',
       txtVn: '',
-      shouldShowForm: true,
+      shouldShowForm: false,
     };
   }
   toggleMemorized(id) {
@@ -92,6 +92,9 @@ export default class List extends Component {
     newArray.unshift(newWord);
     this.setState({words: newArray, txtEn: '', txtVn: ''});
   }
+  toggleForm() {
+    this.setState({shouldShowForm: !this.state.shouldShowForm});
+  }
   renderForm() {
     const {shouldShowForm} = this.state;
     if (shouldShowForm) {
@@ -145,6 +148,7 @@ export default class List extends Component {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              onPress={() => this.toggleForm()}
               style={{
                 backgroundColor: 'red',
                 padding: 15,
@@ -160,6 +164,7 @@ export default class List extends Component {
     } else {
       return (
         <TouchableOpacity
+          onPress={() => this.toggleForm()}
           style={{
             paddingVertical: Dimensionapp.getWidth() / 30,
             backgroundColor: '#28a745',
