@@ -79,21 +79,17 @@ export default class List extends Component {
   render() {
     return (
       <ScrollView style={{flex: 1}}>
-        <View style={{flex: 1, backgroundColor: 'lightgrey'}}>
+        <View
+          style={{flex: 1, backgroundColor: 'lightgrey', position: 'relative'}}>
           <View
             style={{
-              flex: 1,
-              position: 'relative',
+              borderColor: 'white',
+              borderRadius: Dimensionapp.getWidth() / 100,
+              backgroundColor: 'white',
+              margin: Dimensionapp.getWidth() / 70,
+              padding: Dimensionapp.getWidth() / 90,
             }}>
-            <KeyboardAvoidingView
-              behavior="padding"
-              style={{
-                borderColor: 'white',
-                borderRadius: Dimensionapp.getWidth() / 100,
-                backgroundColor: 'white',
-                margin: Dimensionapp.getWidth() / 70,
-                padding: Dimensionapp.getWidth() / 90,
-              }}>
+            <KeyboardAvoidingView behavior="padding">
               <TextInput
                 style={{
                   height: 50,
@@ -129,7 +125,6 @@ export default class List extends Component {
                   flexDirection: 'row',
                   justifyContent: 'space-around',
                   marginTop: 20,
-                  marginBottom: 20,
                 }}>
                 <TouchableOpacity
                   onPress={() => {
@@ -145,7 +140,7 @@ export default class List extends Component {
                     };
                     const newArray = this.jsonCopy(this.state.words);
                     newArray.unshift(newWord);
-                    this.setState({words: newArray});
+                    this.setState({words: newArray, txtEn: '', txtVn: ''});
                   }}
                   style={{
                     backgroundColor: '#28a745',
@@ -170,8 +165,24 @@ export default class List extends Component {
                 </TouchableOpacity>
               </View>
             </KeyboardAvoidingView>
-            {this.state.words.map(item => this.renderItemWord(item))}
+            <TouchableOpacity
+              style={{
+                paddingVertical: Dimensionapp.getWidth() / 30,
+                backgroundColor: '#28a745',
+                alignItems: 'center',
+                borderRadius: Dimensionapp.getWidth() / 100,
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontSize: Dimensionapp.getWidth() / 15,
+                }}>
+                +
+              </Text>
+            </TouchableOpacity>
           </View>
+
+          {this.state.words.map(item => this.renderItemWord(item))}
         </View>
       </ScrollView>
     );
