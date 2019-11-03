@@ -17,8 +17,8 @@ class App extends Component {
             return <Word word={word} key={word.id} />;
           })}
         </View> */}
-        {/* <List /> */}
-        <Form />
+        <List />
+        {/* <Form /> */}
       </SafeAreaView>
     );
   }

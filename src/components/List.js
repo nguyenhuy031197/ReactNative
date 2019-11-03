@@ -22,6 +22,8 @@ export default class List extends Component {
         {id: 'a4', en: 'Four', vn: 'Bon', isMemorized: false},
         {id: 'a5', en: 'Five', vn: 'Nam', isMemorized: true},
       ],
+      txtEn: '',
+      txtVn: '',
     };
   }
   toggleMemorized(id) {
@@ -41,6 +43,9 @@ export default class List extends Component {
       return true;
     });
     this.setState({words: newArray});
+  }
+  jsonCopy(src) {
+    return JSON.parse(JSON.stringify(src));
   }
   renderItemWord(item) {
     const {en, vn, isMemorized, id} = item;
@@ -99,9 +104,9 @@ export default class List extends Component {
                   paddingHorizontal: 20,
                 }}
                 placeholder="English"
-                value={this.state.en}
+                value={this.state.txtEn}
                 onChangeText={function(text) {
-                  this.setState({en: text});
+                  this.setState({txtEn: text});
                 }.bind(this)}
               />
               <TextInput
@@ -114,9 +119,9 @@ export default class List extends Component {
                   paddingHorizontal: 20,
                 }}
                 placeholder="Vietnamese"
-                value={this.state.vn}
+                value={this.state.txtVn}
                 onChangeText={function(text) {
-                  this.setState({vn: text});
+                  this.setState({txtVn: text});
                 }.bind(this)}
               />
               <View
@@ -128,18 +133,19 @@ export default class List extends Component {
                 }}>
                 <TouchableOpacity
                   onPress={() => {
-                    const {countId, en, vn} = this.state;
+                    const {txtEn, txtVn} = this.state;
+                    if (txtEn.length <= 0 || txtVn.length <= 0) {
+                      return alert('Ban chua nhap du thong tin');
+                    }
                     const newWord = {
-                      id: countId,
-                      en,
-                      vn,
+                      id: Math.random(),
+                      en: txtEn,
+                      vn: txtVn,
+                      isMemorized: false,
                     };
-                    this.state.words.push(newWord);
-
-                    this.setState({
-                      words: this.state.words,
-                      countId: this.state.countId + 1,
-                    });
+                    const newArray = this.jsonCopy(this.state.words);
+                    newArray.unshift(newWord);
+                    this.setState({words: newArray});
                   }}
                   style={{
                     backgroundColor: '#28a745',
