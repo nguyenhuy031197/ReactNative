@@ -24,7 +24,7 @@ export default class List extends Component {
       ],
       txtEn: '',
       txtVn: '',
-      shouldShowForm: false,
+      shouldShowForm: true,
     };
   }
   toggleMemorized(id) {
@@ -77,6 +77,21 @@ export default class List extends Component {
       </View>
     );
   }
+  addWord() {
+    const {txtEn, txtVn} = this.state;
+    if (txtEn.length <= 0 || txtVn.length <= 0) {
+      return alert('Ban chua nhap du thong tin');
+    }
+    const newWord = {
+      id: Math.random(),
+      en: txtEn,
+      vn: txtVn,
+      isMemorized: false,
+    };
+    const newArray = this.jsonCopy(this.state.words);
+    newArray.unshift(newWord);
+    this.setState({words: newArray, txtEn: '', txtVn: ''});
+  }
   renderForm() {
     const {shouldShowForm} = this.state;
     if (shouldShowForm) {
@@ -119,21 +134,7 @@ export default class List extends Component {
               marginTop: 20,
             }}>
             <TouchableOpacity
-              onPress={() => {
-                const {txtEn, txtVn} = this.state;
-                if (txtEn.length <= 0 || txtVn.length <= 0) {
-                  return alert('Ban chua nhap du thong tin');
-                }
-                const newWord = {
-                  id: Math.random(),
-                  en: txtEn,
-                  vn: txtVn,
-                  isMemorized: false,
-                };
-                const newArray = this.jsonCopy(this.state.words);
-                newArray.unshift(newWord);
-                this.setState({words: newArray, txtEn: '', txtVn: ''});
-              }}
+              onPress={() => this.addWord()}
               style={{
                 backgroundColor: '#28a745',
                 padding: 15,
@@ -156,7 +157,7 @@ export default class List extends Component {
           </View>
         </KeyboardAvoidingView>
       );
-    } else  {
+    } else {
       return (
         <TouchableOpacity
           style={{
