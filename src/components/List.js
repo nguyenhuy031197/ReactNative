@@ -24,6 +24,7 @@ export default class List extends Component {
       ],
       txtEn: '',
       txtVn: '',
+      shouldShowForm: false,
     };
   }
   toggleMemorized(id) {
@@ -76,6 +77,105 @@ export default class List extends Component {
       </View>
     );
   }
+  renderForm() {
+    const {shouldShowForm} = this.state;
+    if (shouldShowForm) {
+      return (
+        <KeyboardAvoidingView behavior="padding">
+          <TextInput
+            style={{
+              height: 50,
+              borderColor: 'black',
+              borderWidth: 1,
+              margin: 10,
+              fontSize: 20,
+              paddingHorizontal: 20,
+            }}
+            placeholder="English"
+            value={this.state.txtEn}
+            onChangeText={function(text) {
+              this.setState({txtEn: text});
+            }.bind(this)}
+          />
+          <TextInput
+            style={{
+              height: 50,
+              borderColor: 'black',
+              borderWidth: 1,
+              margin: 10,
+              fontSize: 20,
+              paddingHorizontal: 20,
+            }}
+            placeholder="Vietnamese"
+            value={this.state.txtVn}
+            onChangeText={function(text) {
+              this.setState({txtVn: text});
+            }.bind(this)}
+          />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              marginTop: 20,
+            }}>
+            <TouchableOpacity
+              onPress={() => {
+                const {txtEn, txtVn} = this.state;
+                if (txtEn.length <= 0 || txtVn.length <= 0) {
+                  return alert('Ban chua nhap du thong tin');
+                }
+                const newWord = {
+                  id: Math.random(),
+                  en: txtEn,
+                  vn: txtVn,
+                  isMemorized: false,
+                };
+                const newArray = this.jsonCopy(this.state.words);
+                newArray.unshift(newWord);
+                this.setState({words: newArray, txtEn: '', txtVn: ''});
+              }}
+              style={{
+                backgroundColor: '#28a745',
+                padding: 15,
+                borderRadius: 8,
+              }}>
+              <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>
+                Add word
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: 'red',
+                padding: 15,
+                borderRadius: 8,
+              }}>
+              <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>
+                Cancel
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
+      );
+    } else  {
+      return (
+        <TouchableOpacity
+          style={{
+            paddingVertical: Dimensionapp.getWidth() / 30,
+            backgroundColor: '#28a745',
+            alignItems: 'center',
+            borderRadius: Dimensionapp.getWidth() / 100,
+          }}>
+          <Text
+            style={{
+              color: 'white',
+              fontSize: Dimensionapp.getWidth() / 15,
+            }}>
+            +
+          </Text>
+        </TouchableOpacity>
+      );
+    }
+  }
   render() {
     return (
       <ScrollView style={{flex: 1}}>
@@ -89,97 +189,7 @@ export default class List extends Component {
               margin: Dimensionapp.getWidth() / 70,
               padding: Dimensionapp.getWidth() / 90,
             }}>
-            <KeyboardAvoidingView behavior="padding">
-              <TextInput
-                style={{
-                  height: 50,
-                  borderColor: 'black',
-                  borderWidth: 1,
-                  margin: 10,
-                  fontSize: 20,
-                  paddingHorizontal: 20,
-                }}
-                placeholder="English"
-                value={this.state.txtEn}
-                onChangeText={function(text) {
-                  this.setState({txtEn: text});
-                }.bind(this)}
-              />
-              <TextInput
-                style={{
-                  height: 50,
-                  borderColor: 'black',
-                  borderWidth: 1,
-                  margin: 10,
-                  fontSize: 20,
-                  paddingHorizontal: 20,
-                }}
-                placeholder="Vietnamese"
-                value={this.state.txtVn}
-                onChangeText={function(text) {
-                  this.setState({txtVn: text});
-                }.bind(this)}
-              />
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  marginTop: 20,
-                }}>
-                <TouchableOpacity
-                  onPress={() => {
-                    const {txtEn, txtVn} = this.state;
-                    if (txtEn.length <= 0 || txtVn.length <= 0) {
-                      return alert('Ban chua nhap du thong tin');
-                    }
-                    const newWord = {
-                      id: Math.random(),
-                      en: txtEn,
-                      vn: txtVn,
-                      isMemorized: false,
-                    };
-                    const newArray = this.jsonCopy(this.state.words);
-                    newArray.unshift(newWord);
-                    this.setState({words: newArray, txtEn: '', txtVn: ''});
-                  }}
-                  style={{
-                    backgroundColor: '#28a745',
-                    padding: 15,
-                    borderRadius: 8,
-                  }}>
-                  <Text
-                    style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>
-                    Add word
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: 'red',
-                    padding: 15,
-                    borderRadius: 8,
-                  }}>
-                  <Text
-                    style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>
-                    Cancel
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </KeyboardAvoidingView>
-            <TouchableOpacity
-              style={{
-                paddingVertical: Dimensionapp.getWidth() / 30,
-                backgroundColor: '#28a745',
-                alignItems: 'center',
-                borderRadius: Dimensionapp.getWidth() / 100,
-              }}>
-              <Text
-                style={{
-                  color: 'white',
-                  fontSize: Dimensionapp.getWidth() / 15,
-                }}>
-                +
-              </Text>
-            </TouchableOpacity>
+            {this.renderForm()}
           </View>
 
           {this.state.words.map(item => this.renderItemWord(item))}
