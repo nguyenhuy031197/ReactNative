@@ -11,6 +11,7 @@ import {
 import {Dimensionapp} from '../unit/Dimensionapp';
 import Word from './Word';
 import Filter from './Filter';
+import Form from './Form';
 
 export default class List extends Component {
   constructor(props) {
@@ -23,10 +24,8 @@ export default class List extends Component {
         {id: 'a4', en: 'Four', vn: 'Bon', isMemorized: false},
         {id: 'a5', en: 'Five', vn: 'Nam', isMemorized: true},
       ],
-      txtEn: '',
-      txtVn: '',
       shouldShowForm: false,
-      filterMode: 'Show_Memorized',
+      filterMode: 'Show_All',
     };
   }
   toggleMemorized(id) {
@@ -68,93 +67,6 @@ export default class List extends Component {
   toggleForm() {
     this.setState({shouldShowForm: !this.state.shouldShowForm});
   }
-  renderForm() {
-    const {shouldShowForm} = this.state;
-    if (shouldShowForm) {
-      return (
-        <KeyboardAvoidingView behavior="padding">
-          <TextInput
-            style={{
-              height: 50,
-              borderColor: 'black',
-              borderWidth: 1,
-              margin: 10,
-              fontSize: 20,
-              paddingHorizontal: 20,
-            }}
-            placeholder="English"
-            value={this.state.txtEn}
-            onChangeText={function(text) {
-              this.setState({txtEn: text});
-            }.bind(this)}
-          />
-          <TextInput
-            style={{
-              height: 50,
-              borderColor: 'black',
-              borderWidth: 1,
-              margin: 10,
-              fontSize: 20,
-              paddingHorizontal: 20,
-            }}
-            placeholder="Vietnamese"
-            value={this.state.txtVn}
-            onChangeText={function(text) {
-              this.setState({txtVn: text});
-            }.bind(this)}
-          />
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              marginTop: 20,
-            }}>
-            <TouchableOpacity
-              onPress={() => this.addWord()}
-              style={{
-                backgroundColor: '#28a745',
-                padding: 15,
-                borderRadius: 8,
-              }}>
-              <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>
-                Add word
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.toggleForm()}
-              style={{
-                backgroundColor: 'red',
-                padding: 15,
-                borderRadius: 8,
-              }}>
-              <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>
-                Cancel
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAvoidingView>
-      );
-    } else {
-      return (
-        <TouchableOpacity
-          onPress={() => this.toggleForm()}
-          style={{
-            paddingVertical: Dimensionapp.getWidth() / 30,
-            backgroundColor: '#28a745',
-            alignItems: 'center',
-            borderRadius: Dimensionapp.getWidth() / 100,
-          }}>
-          <Text
-            style={{
-              color: 'white',
-              fontSize: Dimensionapp.getWidth() / 15,
-            }}>
-            +
-          </Text>
-        </TouchableOpacity>
-      );
-    }
-  }
   filteredWord = () => {
     return this.state.words.filter(item => {
       if (this.state.filterMode === 'Show_All') {
@@ -182,7 +94,7 @@ export default class List extends Component {
               margin: Dimensionapp.getWidth() / 70,
               padding: Dimensionapp.getWidth() / 90,
             }}>
-            {this.renderForm()}
+            <Form shouldShowForm={this.state.shouldShowForm} />
           </View>
           <Filter filterMode={this.state.filterMode} />
           {this.filteredWord().map(item => (
