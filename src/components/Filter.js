@@ -20,11 +20,18 @@ export default class Filter extends Component {
   }
   render() {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View
+        style={{
+          flex: 1,
+          padding: 10,
+          backgroundColor: 'white',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
         <Dropdown
           data={this.state.filters}
           containerStyle={{
-            width: Dimensionapp.getWidth() * 0.7,
+            width: Dimensionapp.getWidth() * 0.9,
             height: Dimensionapp.getWidth() * 0.1,
             borderRadius: 5,
             borderWidth: 1,
@@ -35,7 +42,7 @@ export default class Filter extends Component {
           onChangeText={text => {
             this.setState({filterMode: text});
           }}
-          value={this.state.filterMode}
+          value={this.props.filterMode}
         />
       </View>
     );

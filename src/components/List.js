@@ -3,14 +3,14 @@ import React, {Component} from 'react';
 import {
   Text,
   View,
-  StyleSheet,
   TouchableOpacity,
   KeyboardAvoidingView,
   TextInput,
   ScrollView,
 } from 'react-native';
 import {Dimensionapp} from '../unit/Dimensionapp';
-import {Dropdown} from 'react-native-material-dropdown';
+import Word from './Word';
+import Filter from './Filter';
 
 export default class List extends Component {
   constructor(props) {
@@ -26,12 +26,7 @@ export default class List extends Component {
       txtEn: '',
       txtVn: '',
       shouldShowForm: false,
-      filterMode: 'Show_All',
-      filters: [
-        {value: 'Show_All'},
-        {value: 'Show_Forgot'},
-        {value: 'Show_Memorized'},
-      ],
+      filterMode: 'Show_Memorized',
     };
   }
   toggleMemorized(id) {
@@ -54,35 +49,6 @@ export default class List extends Component {
   }
   jsonCopy(src) {
     return JSON.parse(JSON.stringify(src));
-  }
-  renderItemWord(item) {
-    const {en, vn, isMemorized, id} = item;
-    return (
-      <View style={styles.container} key={item.id}>
-        <View style={styles.groupText}>
-          <Text style={styles.textEn}>{en}</Text>
-          <Text style={styles.textVn}>{isMemorized ? '----' : vn}</Text>
-        </View>
-        <View style={styles.groupButton}>
-          <TouchableOpacity
-            onPress={() => this.toggleMemorized(id)}
-            style={{
-              ...styles.touchableMemorized,
-              backgroundColor: isMemorized ? '#28a745' : 'red',
-              marginLeft: isMemorized ? Dimensionapp.getWidth() / 20 : 0,
-            }}>
-            <Text style={styles.textMemorized}>
-              {isMemorized ? 'Forgot' : 'isMemorized'}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.removeWord(id)}
-            style={styles.touchableRemove}>
-            <Text style={styles.textRemove}>Remove</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
   }
   addWord() {
     const {txtEn, txtVn} = this.state;
@@ -218,81 +184,12 @@ export default class List extends Component {
             }}>
             {this.renderForm()}
           </View>
-          <View
-            style={{
-              flex: 1,
-              padding: 10,
-              backgroundColor: 'white',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Dropdown
-              data={this.state.filters}
-              containerStyle={{
-                width: Dimensionapp.getWidth() * 0.9,
-                height: Dimensionapp.getWidth() * 0.1,
-                borderRadius: 5,
-                borderWidth: 1,
-                paddingLeft: Dimensionapp.getWidth() * 0.02,
-              }}
-              inputContainerStyle={{borderBottomColor: 'transparent'}}
-              dropdownOffset={{top: Dimensionapp.getWidth() * 0.01, left: 0}}
-              onChangeText={text => {
-                this.setState({filterMode: text});
-              }}
-              value={this.state.filterMode}
-            />
-          </View>
-          {this.filteredWord().map(item => this.renderItemWord(item))}
+          <Filter filterMode={this.state.filterMode} />
+          {this.filteredWord().map(item => (
+            <Word word={item} />
+          ))}
         </View>
       </ScrollView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    height: Dimensionapp.getWidth() / 4,
-    borderColor: 'white',
-    borderRadius: Dimensionapp.getWidth() / 100,
-    backgroundColor: 'white',
-    margin: Dimensionapp.getWidth() / 70,
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  groupText: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: Dimensionapp.getWidth() / 8,
-  },
-  textVn: {
-    fontSize: Dimensionapp.getWidth() / 15,
-    color: 'red',
-  },
-  textEn: {
-    fontSize: Dimensionapp.getWidth() / 15,
-    color: '#28a745',
-  },
-  groupButton: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: Dimensionapp.getWidth() / 30,
-    paddingHorizontal: Dimensionapp.getWidth() / 15,
-  },
-  touchableMemorized: {
-    padding: Dimensionapp.getWidth() / 65,
-  },
-  textMemorized: {
-    color: 'white',
-    fontSize: Dimensionapp.getWidth() / 20,
-  },
-  touchableRemove: {
-    backgroundColor: '#E0A800',
-    padding: Dimensionapp.getWidth() / 65,
-  },
-  textRemove: {
-    color: 'white',
-    fontSize: Dimensionapp.getWidth() / 20,
-  },
-});
