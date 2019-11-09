@@ -4,7 +4,6 @@ import {Text, View, TouchableOpacity} from 'react-native';
 
 export default class Myfunction extends Component {
   render() {
-    const {that} = this.props;
     return (
       <View
         style={{
@@ -13,7 +12,7 @@ export default class Myfunction extends Component {
           justifyContent: 'space-evenly',
         }}>
         <TouchableOpacity
-          onPress={() => that.setState({count: that.state.count + 1})}
+          onPress={() => this.props.onInCrease()}
           style={{backgroundColor: 'green', padding: 10}}>
           <Text
             style={{color: 'white', fontStyle: 'italic', fontWeight: 'bold'}}>
@@ -36,4 +35,3 @@ export default class Myfunction extends Component {
     );
   }
 }
-

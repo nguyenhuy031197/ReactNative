@@ -9,14 +9,15 @@ export default class MyState extends Component {
     this.state = {
       count: 1,
     };
+    this.onInCrease = this.onInCrease.bind(this);
   }
-  inCrease() {
+  onInCrease() {
     this.setState({count: this.state.count + 1});
   }
-  deCrease() {
+  onDeCrease() {
     this.setState({count: this.state.count - 1});
   }
-  reset() {
+  onRßeset() {
     this.setState({count: 0});
   }
   render() {
@@ -31,7 +32,7 @@ export default class MyState extends Component {
         <Text style={{color: 'red', fontSize: 40}}>
           Count : {this.state.count}
         </Text>
-        <Myfunction that={this} />
+        <Myfunction onInCrease={this.onInCrease} />
       </View>
     );
   }
