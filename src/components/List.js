@@ -8,7 +8,7 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
-import {Dimensionapp} from '../unit/Dimensionapp';
+import {Dimensionapp ,Orientation} from '../unit/Dimensionapp';
 import Word from './Word';
 import Filter from './Filter';
 import Form from './Form';

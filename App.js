@@ -5,6 +5,7 @@ import Word from './src/components/Word';
 import List from './src/components/List';
 import Form from './src/components/Form';
 import Filter from './src/components/Filter';
+import MyState from './src/components/MyState';
 
 // import MyState from './src/components/MyState';
 // import MyProps from './src/components/MyProps';
@@ -13,9 +14,10 @@ class App extends Component {
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
-        <List />
+        {/* <List /> */}
         {/* <Form /> */}
         {/* <Filter /> */}
+        <MyState />
       </SafeAreaView>
     );
   }
