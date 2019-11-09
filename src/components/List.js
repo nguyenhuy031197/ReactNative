@@ -229,7 +229,23 @@ export default class List extends Component {
               value={this.state.filterMode}
             />
           </View>
-          {this.state.words.map(item => this.renderItemWord(item))}
+          {this.state.words
+            .filter(item => {
+              if (this.state.filterMode === 'Show_All') {
+                return true;
+              }
+              if (this.state.filterMode === 'Show_Forgot' && item.isMemorized) {
+                return true;
+              }
+              if (
+                this.state.filterMode === 'Show_Memorized' &&
+                !item.isMemorized
+              ) {
+                return true;
+              }
+              return false;
+            })
+            .map(item => this.renderItemWord(item))}
         </View>
       </ScrollView>
     );
