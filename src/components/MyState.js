@@ -31,7 +31,7 @@ export default class MyState extends Component {
         <Text style={{color: 'red', fontSize: 40}}>
           Count : {this.state.count}
         </Text>
-        <Myfunction />
+        <Myfunction that={this} />
       </View>
     );
   }
