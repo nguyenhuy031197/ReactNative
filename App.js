@@ -4,6 +4,7 @@ import {SafeAreaView} from 'react-native';
 import Word from './src/components/Word';
 import List from './src/components/List';
 import Form from './src/components/Form';
+import Filter from './src/components/Filter';
 
 // import MyState from './src/components/MyState';
 // import MyProps from './src/components/MyProps';
@@ -17,8 +18,9 @@ class App extends Component {
             return <Word word={word} key={word.id} />;
           })}
         </View> */}
-        <List />
+        {/* <List /> */}
         {/* <Form /> */}
+        <Filter />
       </SafeAreaView>
     );
   }
