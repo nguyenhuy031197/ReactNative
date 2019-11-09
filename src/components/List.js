@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {
@@ -11,6 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {Dimensionapp} from '../unit/Dimensionapp';
+import {Dropdown} from 'react-native-material-dropdown';
 
 export default class List extends Component {
   constructor(props) {
@@ -26,6 +26,12 @@ export default class List extends Component {
       txtEn: '',
       txtVn: '',
       shouldShowForm: false,
+      filterMode: 'Show_All',
+      filters: [
+        {value: 'Show_All'},
+        {value: 'Show_Forgot'},
+        {value: 'Show_Memorized'},
+      ],
     };
   }
   toggleMemorized(id) {
@@ -198,7 +204,31 @@ export default class List extends Component {
             }}>
             {this.renderForm()}
           </View>
-
+          <View
+            style={{
+              flex: 1,
+              padding: 10,
+              backgroundColor: 'white',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Dropdown
+              data={this.state.filters}
+              containerStyle={{
+                width: Dimensionapp.getWidth() * 0.9,
+                height: Dimensionapp.getWidth() * 0.1,
+                borderRadius: 5,
+                borderWidth: 1,
+                paddingLeft: Dimensionapp.getWidth() * 0.02,
+              }}
+              inputContainerStyle={{borderBottomColor: 'transparent'}}
+              dropdownOffset={{top: Dimensionapp.getWidth() * 0.01, left: 0}}
+              onChangeText={text => {
+                this.setState({filterMode: text});
+              }}
+              value={this.state.filterMode}
+            />
+          </View>
           {this.state.words.map(item => this.renderItemWord(item))}
         </View>
       </ScrollView>

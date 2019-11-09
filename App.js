@@ -13,14 +13,9 @@ class App extends Component {
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
-        {/* <View style={{flex: 1, backgroundColor: 'lightgrey'}}>
-          {arrayWords.map(function(word) {
-            return <Word word={word} key={word.id} />;
-          })}
-        </View> */}
-        {/* <List /> */}
+        <List />
         {/* <Form /> */}
-        <Filter />
+        {/* <Filter /> */}
       </SafeAreaView>
     );
   }
